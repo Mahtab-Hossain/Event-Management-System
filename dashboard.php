@@ -43,36 +43,7 @@ $searchResult = $searchStmt->get_result();
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Event Management System</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="create_event.php">Create Event</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="manage_events.php">Manage Events</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="attendee_list.php">Attendee List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="reports.php">Reports</a>
-                </li>
-            </ul>
-            <form class="form-inline ml-auto" method="GET" action="dashboard.php">
-                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="<?php echo htmlspecialchars($search); ?>">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
-
+    <?php include 'includes/navbar.php'; ?>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-4">
