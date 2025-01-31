@@ -15,6 +15,9 @@
                 <a class="nav-link" href="manage_events.php">Manage Events</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="event_dashboard.php">Event Dashboard</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="attendee_list.php">Attendee List</a>
             </li>
             <li class="nav-item">

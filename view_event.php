@@ -4,10 +4,20 @@ requireLogin();
 include 'includes/db.php';
 
 $id = $_GET['id'];
-$stmt = $conn->prepare("SELECT name, description, date, max_capacity FROM events WHERE id = ?");
+$user_id = $_SESSION['user_id'];
+
+$stmt = $conn->prepare("SELECT name, description, date, max_capacity, user_id FROM events WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$stmt->bind_result($name, $description, $date, $max_capacity);
+$stmt->bind_result($name, $description, $date, $max_capacity, $event_creator_id);
+$stmt->fetch();
+$stmt->close();
+
+// Check if the user is registered for the event
+$stmt = $conn->prepare("SELECT COUNT(*) FROM attendees WHERE event_id = ? AND user_id = ?");
+$stmt->bind_param("ii", $id, $user_id);
+$stmt->execute();
+$stmt->bind_result($registration_count);
 $stmt->fetch();
 $stmt->close();
 ?>
@@ -22,6 +32,7 @@ $stmt->close();
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <?php include 'includes/navbar.php'; ?>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -32,8 +43,16 @@ $stmt->close();
                         <p class="card-text"><?php echo $description; ?></p>
                         <p class="card-text"><strong>Date:</strong> <?php echo date('Y-m-d H:i', strtotime($date)); ?></p>
                         <p class="card-text"><strong>Max Capacity:</strong> <?php echo $max_capacity; ?></p>
-                        <a href="update_event.php?id=<?php echo $id; ?>" class="btn btn-primary">Edit</a>
-                        <a href="delete_event.php?id=<?php echo $id; ?>" class="btn btn-danger">Delete</a>
+                        <?php if ($user_id == $event_creator_id): ?>
+                            <a href="update_event.php?id=<?php echo $id; ?>" class="btn btn-primary">Edit</a>
+                            <a href="delete_event.php?id=<?php echo $id; ?>" class="btn btn-danger">Delete</a>
+                        <?php else: ?>
+                            <?php if ($registration_count > 0): ?>
+                                <a href="cancel_registration.php?event_id=<?php echo $id; ?>" class="btn btn-warning">Cancel Registration</a>
+                            <?php else: ?>
+                                <a href="register_attendee.php?event_id=<?php echo $id; ?>" class="btn btn-success">Register</a>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

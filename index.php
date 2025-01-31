@@ -21,7 +21,7 @@ include 'includes/auth.php';
             <hr class="my-4">
             <p>Get started by creating your first event or exploring the features.</p>
             <a class="btn btn-primary btn-lg" href="create_event.php" role="button">Create Event</a>
-            <a class="btn btn-secondary btn-lg" href="features.php" role="button">Learn More</a>
+            <a class="btn btn-secondary btn-lg" href="event_dashboard.php" role="button">Event Dashboard</a>
         </div>
     </div>
     <?php include 'includes/footer.php'; ?>
