@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "event_management";
+$servername = "MYSQLHOST";
+$username = "MYSQLUSER";
+$password = "MYSQLPASSWORD";
+$dbname = "MYSQLDATABASE";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
