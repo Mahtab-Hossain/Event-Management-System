@@ -16,7 +16,8 @@ include 'includes/auth.php';
     <?php include 'includes/navbar.php'; ?>
     <div class="container mt-5">
         <div class="jumbotron">
-            <h1 class="display-4">Welcome to Event Nexus</h1>
+            <h1 class="display-4">Welcome to EMS</h1>
+            <h3>Event Management System</h3>
             <p class="lead">The future of event management is here. Seamlessly create, manage, and experience events.</p>
             <hr class="my-4">
             <p>Get started by creating your first event or exploring the features.</p>
