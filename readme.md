@@ -20,24 +20,23 @@ The Event Management System is a web-based application that allows users to crea
    cd event-management-system
 
 
-## Project Structure
+## 📁 Project Structure  
 
-event-management-system/
-├── index.php
-├── login.php
-├── register.php
-├── dashboard.php
-├── create_event.php
-├── update_event.php
-├── delete_event.php
-├── view_event.php
-├── register_attendee.php
-├── download_attendees.php
-├── css/
-│   └── styles.css
-├── js/
-│   └── scripts.js
-└── includes/
-    ├── db.php
-    ├── auth.php
-    └── functions.php
+- **index.php** - Homepage  
+- **login.php** - User login page  
+- **register.php** - User registration page  
+- **dashboard.php** - Event dashboard  
+- **create_event.php** - Create new event  
+- **update_event.php** - Update an event  
+- **delete_event.php** - Delete an event  
+- **view_event.php** - View event details  
+- **register_attendee.php** - Register for an event  
+- **download_attendees.php** - Download attendee list (CSV)  
+- **css/** - Contains stylesheets  
+  - `styles.css` - Main stylesheet  
+- **js/** - JavaScript files  
+  - `scripts.js` - Main script  
+- **includes/** - Core backend functions  
+  - `db.php` - Database connection  
+  - `auth.php` - Authentication logic  
+  - `functions.php` - Helper functions  
