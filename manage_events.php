@@ -5,7 +5,7 @@ include 'includes/db.php';
 
 $user_id = $_SESSION['user_id'];
 
-// Fetch events created by the user
+
 $eventsQuery = "SELECT id, name, description, date, max_capacity FROM events WHERE user_id = ?";
 $stmt = $conn->prepare($eventsQuery);
 $stmt->bind_param("i", $user_id);

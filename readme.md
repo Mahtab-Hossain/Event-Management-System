@@ -40,3 +40,72 @@ The Event Management System is a web-based application that allows users to crea
   - `db.php` - Database connection  
   - `auth.php` - Authentication logic  
   - `functions.php` - Helper functions  
+
+
+
+
+  # Application Usage Guide
+
+This guide provides detailed instructions for testing and using the application features. Follow the steps below for different tasks.
+
+---
+
+## Login Credentials for Testing
+
+### Admin User
+- **Username:** `admin`
+- **Password:** `Admin@123`
+
+### Regular User
+- **Username:** `user`
+- **Password:** `User@123`
+
+---
+
+## Creating an Event
+
+1. **Log in** as a regular user.
+2. **Navigate** to the **"Create Event"** page.
+3. **Fill in** the event details.
+4. **Submit** the form.
+
+---
+
+## Managing Events
+
+1. **Log in** as a regular user.
+2. **Navigate** to the **"Manage Events"** page.
+3. **View, edit, or delete** your events.
+
+---
+
+## Registering for an Event
+
+1. **Log in** as a regular user.
+2. **Navigate** to the **"Event Dashboard"** page.
+3. **Click** on an event to view its details.
+4. **Click** the **"Register"** button to register for the event.
+
+---
+
+## Viewing Attendees
+
+1. **Log in** as a regular user.
+2. **Navigate** to the **"Manage Events"** page.
+3. **Click** the **"View Attendees"** button for an event to see the list of attendees.
+
+---
+
+## Downloading Attendee List
+
+1. **Log in** as a regular user.
+2. **Navigate** to the **"Manage Events"** page.
+3. **Click** the **"Download Attendees"** button for an event to download the list of attendees in CSV format.
+
+---
+
+## Admin Features
+
+1. **Log in** as an admin user.
+2. **Navigate** to the **"Reports"** page to view and download event reports.
+3. **Navigate** to the **"Register Admin"** page to register new admin users.
