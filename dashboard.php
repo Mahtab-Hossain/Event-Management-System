@@ -21,14 +21,14 @@ $upcomingEventsResult = $conn->query($upcomingEventsQuery);
 $upcomingEvents = $upcomingEventsResult->fetch_assoc()['total'];
 
 // Search events and attendees
-$searchQuery = "SELECT e.id, e.name, e.description, e.date, e.max_capacity, u.username 
+$searchQuery = "SELECT e.id, e.name, e.description, e.date, e.max_capacity, COUNT(a.id) as attendee_count 
                 FROM events e 
                 LEFT JOIN attendees a ON e.id = a.event_id 
-                LEFT JOIN users u ON a.user_id = u.id 
-                WHERE e.name LIKE ? OR u.username LIKE ?";
+                WHERE e.name LIKE ? 
+                GROUP BY e.id, e.name, e.description, e.date, e.max_capacity";
 $searchStmt = $conn->prepare($searchQuery);
 $searchTerm = '%' . $search . '%';
-$searchStmt->bind_param("ss", $searchTerm, $searchTerm);
+$searchStmt->bind_param("s", $searchTerm);
 $searchStmt->execute();
 $searchResult = $searchStmt->get_result();
 ?>
@@ -82,7 +82,7 @@ $searchResult = $searchStmt->get_result();
                             <th>Description</th>
                             <th>Date</th>
                             <th>Max Capacity</th>
-                            <th>Attendee</th>
+                            <th>Number of Attendees</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,7 +92,7 @@ $searchResult = $searchStmt->get_result();
                                 <td><?php echo htmlspecialchars($row['description']); ?></td>
                                 <td><?php echo htmlspecialchars($row['date']); ?></td>
                                 <td><?php echo htmlspecialchars($row['max_capacity']); ?></td>
-                                <td><?php echo htmlspecialchars($row['username']); ?></td>
+                                <td><?php echo htmlspecialchars($row['attendee_count']); ?></td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>

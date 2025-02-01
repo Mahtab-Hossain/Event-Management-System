@@ -17,12 +17,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="event_dashboard.php">Event Dashboard</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="attendee_list.php">Attendee List</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="reports.php">Reports</a>
-            </li>
+            <?php if (isAdmin()): ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="reports.php">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="register_admin.php">Register Admin</a>
+                </li>
+            <?php endif; ?>
         </ul>
         <form class="form-inline ml-auto" method="GET" action="dashboard.php">
             <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
@@ -35,7 +37,15 @@
                     <a class="nav-link" href="logout.php">Logout</a>
                 </li>
             </ul>
+        <?php else: ?>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="login.php">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="register.php">Register</a>
+                </li>
+            </ul>
         <?php endif; ?>
-        
     </div>
 </nav>

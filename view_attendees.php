@@ -3,15 +3,33 @@ include 'includes/auth.php';
 requireLogin();
 include 'includes/db.php';
 
+$event_id = $_GET['event_id'];
 $user_id = $_SESSION['user_id'];
 
-// Fetch events created by the user
-$eventsQuery = "SELECT id, name, description, date, max_capacity FROM events WHERE user_id = ?";
-$stmt = $conn->prepare($eventsQuery);
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$eventsResult = $stmt->get_result();
-$stmt->close();
+// Check if the user is the owner of the event
+$checkStmt = $conn->prepare("SELECT COUNT(*) FROM events WHERE id = ? AND user_id = ?");
+$checkStmt->bind_param("ii", $event_id, $user_id);
+$checkStmt->execute();
+$checkStmt->bind_result($count);
+$checkStmt->fetch();
+$checkStmt->close();
+
+if ($count > 0) {
+    // Fetch attendees for the event
+    $attendeesQuery = "SELECT u.username, u.email, a.registration_time 
+                       FROM attendees a 
+                       JOIN users u ON a.user_id = u.id 
+                       WHERE a.event_id = ?";
+    $stmt = $conn->prepare($attendeesQuery);
+    $stmt->bind_param("i", $event_id);
+    $stmt->execute();
+    $attendeesResult = $stmt->get_result();
+    $stmt->close();
+} else {
+    $_SESSION['notification'] = ['type' => 'error', 'message' => 'You do not have permission to view attendees for this event.'];
+    header('Location: manage_events.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +37,7 @@ $stmt->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Events - Event Management System</title>
+    <title>View Attendees - Event Management System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -27,30 +45,21 @@ $stmt->close();
 <body>
     <?php include 'includes/navbar.php'; ?>
     <div class="container mt-5">
-        <h3>Manage Your Events</h3>
+        <h3>Attendees for Event</h3>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Event Name</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                    <th>Max Capacity</th>
-                    <th>Actions</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Registration Time</th>
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row = $eventsResult->fetch_assoc()): ?>
+                <?php while ($row = $attendeesResult->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['name']); ?></td>
-                        <td><?php echo htmlspecialchars($row['description']); ?></td>
-                        <td><?php echo htmlspecialchars($row['date']); ?></td>
-                        <td><?php echo htmlspecialchars($row['max_capacity']); ?></td>
-                        <td>
-                            <a href="view_event.php?id=<?php echo $row['id']; ?>" class="btn btn-info btn-sm">View</a>
-                            <a href="update_event.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="delete_event.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this event?');">Delete</a>
-                            <a href="view_attendees.php?event_id=<?php echo $row['id']; ?>" class="btn btn-secondary btn-sm">View Attendees</a>
-                        </td>
+                        <td><?php echo htmlspecialchars($row['username']); ?></td>
+                        <td><?php echo htmlspecialchars($row['email']); ?></td>
+                        <td><?php echo htmlspecialchars($row['registration_time']); ?></td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>

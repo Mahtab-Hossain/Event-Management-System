@@ -1,13 +1,13 @@
 <?php
 include 'includes/db.php';
-session_start();
+include 'includes/auth.php';
+requireAdmin();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-    $is_admin = isset($_POST['is_admin']) ? 1 : 0;
 
     // Check if passwords match
     if ($password !== $confirm_password) {
@@ -31,13 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Hash the password
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                // Insert the new user
-                $stmt = $conn->prepare("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)");
-                $stmt->bind_param("sssi", $username, $email, $hashed_password, $is_admin);
+                // Insert the new admin user
+                $stmt = $conn->prepare("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, 1)");
+                $stmt->bind_param("sss", $username, $email, $hashed_password);
 
                 if ($stmt->execute()) {
-                    $_SESSION['notification'] = ['type' => 'success', 'message' => 'Registration successful. Please log in.'];
-                    header('Location: login.php');
+                    $_SESSION['notification'] = ['type' => 'success', 'message' => 'Admin registration successful.'];
+                    header('Location: dashboard.php');
                     exit();
                 } else {
                     $error = "Error: " . $stmt->error;
@@ -57,22 +57,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Event Management System</title>
+    <title>Register Admin - Event Management System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <?php include 'includes/navbar.php'; ?>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">Register</div>
+                    <div class="card-header bg-primary text-white">Register Admin</div>
                     <div class="card-body">
                         <?php if (isset($error)): ?>
                             <div class="alert alert-danger"><?php echo $error; ?></div>
                         <?php endif; ?>
-                        <form method="POST" action="register.php">
+                        <form method="POST" action="register_admin.php">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
@@ -89,8 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label for="confirm_password">Confirm Password</label>
                                 <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Confirm Password" required>
                             </div>
-                            <input type="hidden" name="is_admin" value="0">
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                            <button type="submit" class="btn btn-primary btn-block">Register Admin</button>
                         </form>
                     </div>
                 </div>
