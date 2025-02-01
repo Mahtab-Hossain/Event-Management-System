@@ -1,0 +1,54 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Card Styles */
+.card {
+    margin-bottom: 20px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 10px;
+    }
+
+    .container {
+        margin-top: 10px;
+    }
+}
+
+/* Toastr Notification Styles */
+.toast-top-right {
+    top: 12px;
+    right: 12px;
+}
+
+.toast {
+    opacity: 0.9;
+}

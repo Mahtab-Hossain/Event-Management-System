@@ -18,6 +18,3 @@ function showNotification(type, message) {
     };
     toastr[type](message);
 }
-
-// Example usage:
-// showNotification('success', 'You have successfully logged in.');

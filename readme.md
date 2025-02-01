@@ -1,65 +1,27 @@
 # Event Management System
-## Objective
-The goal of this project is to develop a simple, web-based event
-management system that allows users to create, manage, and view events,
-as well as register attendees and generate event reports.
 
-Task Requirements
+## Overview
+The Event Management System is a web-based application that allows users to create, manage, and view events. Users can register for events, and admins can generate reports. The system ensures secure user authentication, client-side and server-side validation, and provides a responsive user interface.
 
-1. Core Functionalities
+## Features
+- **User Authentication**: Secure login and registration with password hashing.
+- **Event Management**: Authenticated users can create, update, view, and delete events.
+- **Attendee Registration**: Users can register for events, with capacity limits enforced.
+- **Event Dashboard**: Displays events in a paginated, sortable, and filterable format.
+- **Event Reports**: Admins can download attendee lists for specific events in CSV format.
+- **Role-Based Access Control**: Admins can manage all events, view reports, and register other admins. Regular users can manage their own events and view attendee lists.
+- **Responsive Design**: The application is mobile-friendly and uses Bootstrap for a responsive UI.
+- **Notifications**: Toastr notifications for user feedback.
 
-• User Authentication: Implement user login and registration with secure
-password hashing.
-• Event Management: Authenticated users can create, update, view, and
-delete events with details like name, desc.
-• Attendee Registration: Provide a form for event registration and prevent
-registration beyond the maximum capacity.
-• Event Dashboard: Display events in a paginated, sortable, and filterable
-format.
-• Event Reports: Enable admins to download attendee lists for specific
-events in CSV format.
+## Installation Instructions
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/Mahtab-Hossain/Event-Management-System
+   cd event-management-system
 
-2. Technical Requirements
 
-Backend development using pure PHP (no frameworks).
-• Use MySQL for the database.
-• Ensure client-side and server-side validation.
-Use prepared statements to prevent SQL injection.
-Create a basic, responsive Ul using frameworks like Bootstrap
-• Provide setup instructions for the project.
+## Project Structure
 
-3. Hosting and Code Submission
-• Host the project on any free or paid hosting service (e.g., Heroku,
-Vercel, or a shared hosting provider).
-• Share the live project link and login credentials for testing.
-• Upload the full project to GitHub or a similar platform.- Include a
-README file with project overview, features, installation instructions,
-and login credentials for testing.
-
-4. Bonus Points (Optional)
-• Implement search functionality across events and attendees.
-• Use AJAX to enhance user experience during event registration.
-• Add a JSON API endpoint to fetch event details programmatically.
-
-### Evaluation Criteria
-
-Code Quality: Well-structured, readable code adhering to best practices.
-
-Functionality: Proper implementation of features and handling of edge cases.
-
-Security: Secure practices, including password hashing, input validation, and prepared statements.
-
-Database Design: Efficient and relational structure for events and
-attendees.
-
-Documentation: Clear instructions for setup and usage.
-
-Hosting and Accessibility: Live demo link with login credentials and
-GitHub repository.
-
-### Project Structure
-
-```
 event-management-system/
 ├── index.php
 ├── login.php
@@ -70,7 +32,7 @@ event-management-system/
 ├── delete_event.php
 ├── view_event.php
 ├── register_attendee.php
-├── download_report.php
+├── download_attendees.php
 ├── css/
 │   └── styles.css
 ├── js/

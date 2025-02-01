@@ -50,6 +50,7 @@ $stmt->close();
                             <a href="update_event.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
                             <a href="delete_event.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this event?');">Delete</a>
                             <a href="view_attendees.php?event_id=<?php echo $row['id']; ?>" class="btn btn-secondary btn-sm">View Attendees</a>
+                            <a href="download_attendees.php?event_id=<?php echo $row['id']; ?>" class="btn btn-success btn-sm">Attendees List</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
