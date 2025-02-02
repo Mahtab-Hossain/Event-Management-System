@@ -16,5 +16,6 @@ function showNotification(type, message) {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     };
+    // Display the notification
     toastr[type](message);
 }

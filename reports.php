@@ -4,6 +4,7 @@ requireLogin();
 requireAdmin();
 include 'includes/db.php';
 
+// Initialize filter variables
 $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : '';
 $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : '';
 $event_name = isset($_GET['event_name']) ? $_GET['event_name'] : '';
@@ -31,7 +32,7 @@ if ($category) {
 
 $eventsResult = $conn->query($eventsQuery);
 
-// Generate CSV
+// Generate CSV if requested
 if (isset($_GET['download_csv'])) {
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment;filename=event_reports.csv');
@@ -51,9 +52,11 @@ if (isset($_GET['download_csv'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags and title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Reports - Event Management System</title>
+    <!-- CSS links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -62,6 +65,7 @@ if (isset($_GET['download_csv'])) {
     <?php include 'includes/navbar.php'; ?>
     <div class="container mt-5">
         <h3>Event Reports</h3>
+        <!-- Filter form -->
         <form method="GET" action="reports.php" class="form-inline mb-3">
             <input type="date" name="start_date" class="form-control mr-2" placeholder="Start Date" value="<?php echo htmlspecialchars($start_date); ?>">
             <input type="date" name="end_date" class="form-control mr-2" placeholder="End Date" value="<?php echo htmlspecialchars($end_date); ?>">
@@ -70,6 +74,7 @@ if (isset($_GET['download_csv'])) {
             <button type="submit" class="btn btn-primary">Filter</button>
             <button type="submit" name="download_csv" class="btn btn-success ml-2">Download CSV</button>
         </form>
+        <!-- Events table -->
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -92,6 +97,7 @@ if (isset($_GET['download_csv'])) {
         </table>
     </div>
 
+    <!-- JavaScript links -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

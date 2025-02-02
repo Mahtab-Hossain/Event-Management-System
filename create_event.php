@@ -1,9 +1,11 @@
 <?php
+// Include authentication and database connection files
 include 'includes/auth.php';
 requireLogin();
 include 'includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve form data
     $name = $_POST['name'];
     $description = $_POST['description'];
     $date = $_POST['date'];
@@ -21,10 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($count > 0) {
         $error = "An event with the same name and date already exists.";
     } else {
+        // Insert new event into the database
         $stmt = $conn->prepare("INSERT INTO events (name, description, date, max_capacity, user_id) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssii", $name, $description, $date, $max_capacity, $user_id);
 
         if ($stmt->execute()) {
+            // Set success notification and redirect to dashboard
             $_SESSION['notification'] = ['type' => 'success', 'message' => 'Event created successfully!'];
             header('Location: dashboard.php');
             exit();

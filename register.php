@@ -2,7 +2,6 @@
 session_start();
 include 'includes/db.php';
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -56,9 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags and title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Event Management System</title>
+    <!-- CSS links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -70,9 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="card">
                     <div class="card-header bg-primary text-white">Register</div>
                     <div class="card-body">
+                        <!-- Display error message if any -->
                         <?php if (isset($error)): ?>
                             <div class="alert alert-danger"><?php echo $error; ?></div>
                         <?php endif; ?>
+                        <!-- Registration form -->
                         <form method="POST" action="register.php">
                             <div class="form-group">
                                 <label for="username">Username</label>
@@ -99,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
+    <!-- JavaScript links -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,28 +1,35 @@
 <?php
+// Start the session
 session_start();
+// Include the database connection file
 include 'includes/db.php';
 
-
+// Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    // Prepare the SQL statement to select user details
     $stmt = $conn->prepare("SELECT id, password, is_admin FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->bind_result($user_id, $hashed_password, $is_admin);
     $stmt->fetch();
 
+    // Verify the password
     if (password_verify($password, $hashed_password)) {
+        // Set session variables
         $_SESSION['user_id'] = $user_id;
         $_SESSION['is_admin'] = $is_admin;
         $_SESSION['notification'] = ['type' => 'success', 'message' => 'You have successfully logged in.'];
+        // Redirect to the dashboard
         header('Location: dashboard.php');
         exit();
     } else {
         $error = "Invalid username or password.";
     }
 
+    // Close the statement and connection
     $stmt->close();
     $conn->close();
 }
